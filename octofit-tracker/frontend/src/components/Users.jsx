@@ -4,7 +4,7 @@ const buildApiBaseUrl = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
 
   if (typeof codespaceName === 'string' && codespaceName.trim() !== '') {
-    return `https://${codespaceName.trim()}-8000.app.github.dev`;
+    return 'https://' + codespaceName.trim() + '-8000.app.github.dev';
   }
 
   return 'http://localhost:8000';
@@ -53,6 +53,7 @@ function Users() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const apiBaseUrl = buildApiBaseUrl();
+  const apiUrl = apiBaseUrl + '/api/users/';
 
   useEffect(() => {
     const controller = new AbortController();
@@ -62,7 +63,7 @@ function Users() {
         setLoading(true);
         setError('');
 
-        const response = await fetch(`${apiBaseUrl}/api/users/`, {
+        const response = await fetch(apiUrl, {
           signal: controller.signal,
         });
 
@@ -86,14 +87,14 @@ function Users() {
     fetchUsers();
 
     return () => controller.abort();
-  }, [apiBaseUrl]);
+  }, [apiUrl]);
 
   return (
     <div className="card shadow-sm border-0">
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2 className="h4 mb-0">Users</h2>
-          <small className="text-muted">{`${apiBaseUrl}/api/users/`}</small>
+          <small className="text-muted">{apiUrl}</small>
         </div>
 
         {loading && <div className="alert alert-info mb-0">Loading users...</div>}

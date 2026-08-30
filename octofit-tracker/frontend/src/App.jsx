@@ -15,8 +15,8 @@ const navItems = [
 
 function AppLayout() {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-  const apiBaseUrl = codespaceName?.trim
-    ? `https://${codespaceName.trim()}-8000.app.github.dev`
+  const apiBaseUrl = codespaceName && codespaceName.trim()
+    ? 'https://' + codespaceName.trim() + '-8000.app.github.dev'
     : 'http://localhost:8000';
 
   return (
