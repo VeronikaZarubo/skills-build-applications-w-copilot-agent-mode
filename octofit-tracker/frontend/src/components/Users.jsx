@@ -4,10 +4,10 @@ const buildApiBaseUrl = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
 
   if (typeof codespaceName === 'string' && codespaceName.trim() !== '') {
-    return 'https://' + codespaceName.trim() + '-8000.app.github.dev';
+    return 'https://' + codespaceName.trim() + '-8000.app.github.dev/api/users/';
   }
 
-  return 'http://localhost:8000';
+  return 'http://localhost:8000/api/users/';
 };
 
 const normalizeRecords = (payload) => {
@@ -52,8 +52,7 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const apiBaseUrl = buildApiBaseUrl();
-  const apiUrl = apiBaseUrl + '/api/users/';
+  const apiUrl = buildApiBaseUrl();
 
   useEffect(() => {
     const controller = new AbortController();
